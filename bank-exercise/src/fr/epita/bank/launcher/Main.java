@@ -27,16 +27,15 @@ public class Main {
         System.out.println("you have created this user: " + customer);
 
         SavingsAccount savingsAccount = new SavingsAccount(500.0, customer);
+        savingsAccount.setInterestRate(0.025);
         AccountService.creditInterest(savingsAccount);
 
         //5.
 
         // try to withdraw
-      //  AccountService.withdrawFromAccount(savingsAccount, 300);
-       // AccountService.withdrawFromAccount(savingsAccount, 500);
-
-
-        //savingsAccount.setBalance(savingsAccount.getBalance() - 300);
+       AccountService.withdrawFromAccount(savingsAccount, 300);
+       AccountService.withdrawFromAccount(savingsAccount, 500);
+       savingsAccount.setBalance(savingsAccount.getBalance() - 300);
 
 
 
