@@ -2,6 +2,8 @@ package fr.epita.bank.launcher;
 
 import fr.epita.bank.datamodel.Customer;
 import fr.epita.bank.datamodel.SavingsAccount;
+import fr.epita.bank.service.AccountService;
+
 
 public class Main {
 
@@ -15,10 +17,20 @@ public class Main {
 
         Customer quentin = new Customer("quentin", "paris");
         SavingsAccount savingsAccount = new SavingsAccount(500.0, quentin);
-        Double gain = savingsAccount.balance * savingsAccount.interestRate;
+        AccountService.creditInterest(savingsAccount);
+
+        //5.
+
+        // try to withdraw
+        AccountService.withdrawFromAccount(savingsAccount, 300);
+        AccountService.withdrawFromAccount(savingsAccount, 500);
+
+
+        savingsAccount.setBalance(savingsAccount.getBalance() - 300);
 
 
 
 
     }
+
 }

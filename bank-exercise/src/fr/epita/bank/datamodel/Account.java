@@ -1,7 +1,7 @@
 package fr.epita.bank.datamodel;
 
 public class Account {
-    public double balance;
+    double balance;
     Customer customer;
 
     public Account(Double balance, Customer customer) {
@@ -14,11 +14,17 @@ public class Account {
     }
 
     public void setBalance(double balance) {
+
         if (balance < 0){
-            // show warning
+            //
         } else {
-            this.balance = balance;
+            if (this.balance - balance < 0){
+                System.out.println("the balance is insufficient");
+            }else {
+                this.balance = balance;
+            }
         }
+
     }
 
     public Customer getCustomer() {
