@@ -18,12 +18,11 @@ public class Main {
         // insufficient, then it should print a warning
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to this bank application");
-
         System.out.println("Account creation, enter the customer name");
         String name = scanner.nextLine();
-        System.out.println(" enter the customer address");
+        System.out.println("enter the customer address");
         String address = scanner.nextLine();
-        Customer customer = new Customer(name,address);
+        Customer customer = new Customer(name, address);
         System.out.println("you have created this user: " + customer);
 
         SavingsAccount savingsAccount = new SavingsAccount(500.0, customer);
@@ -32,14 +31,16 @@ public class Main {
 
         //5.
 
-        // try to withdraw
-       AccountService.withdrawFromAccount(savingsAccount, 300);
-       AccountService.withdrawFromAccount(savingsAccount, 500);
-       savingsAccount.setBalance(savingsAccount.getBalance() - 300);
+        // trigger withdraw activity
+        withdrawActivity(scanner, savingsAccount);
 
 
+    }
 
-
+    private static void withdrawActivity(Scanner scanner, SavingsAccount savingsAccount) {
+        System.out.println("enter the amount of money you want to withdraw");
+        Integer withdrawAmount = Integer.parseInt(scanner.next());
+        AccountService.withdrawFromAccount(savingsAccount, withdrawAmount);
     }
 
 }

@@ -10,7 +10,7 @@ public class AccountService {
 
    public static void withdrawFromAccount(SavingsAccount savingsAccount, Integer val) {
         if (savingsAccount.getBalance() - val < 0) {
-            System.out.println("the balance is insufficient");
+            System.out.println("the balance is insufficient : actual balance = " + savingsAccount.getBalance() + " requested : " + val  );
         } else {
             savingsAccount.setBalance(savingsAccount.getBalance() - val);
         }
