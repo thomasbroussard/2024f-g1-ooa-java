@@ -32,11 +32,11 @@ public class Main {
         //5.
 
         // try to withdraw
-        AccountService.withdrawFromAccount(savingsAccount, 300);
-        AccountService.withdrawFromAccount(savingsAccount, 500);
+      //  AccountService.withdrawFromAccount(savingsAccount, 300);
+       // AccountService.withdrawFromAccount(savingsAccount, 500);
 
 
-        savingsAccount.setBalance(savingsAccount.getBalance() - 300);
+        //savingsAccount.setBalance(savingsAccount.getBalance() - 300);
 
 
 
