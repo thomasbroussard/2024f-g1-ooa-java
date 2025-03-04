@@ -6,6 +6,8 @@ import fr.epita.bank.service.AccountService;
 
 import java.util.Scanner;
 
+import static fr.epita.bank.service.ApplicationActivitiesService.*;
+
 
 public class Main {
 
@@ -18,15 +20,10 @@ public class Main {
         // insufficient, then it should print a warning
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to this bank application");
-        System.out.println("Account creation, enter the customer name");
-        String name = scanner.nextLine();
-        System.out.println("enter the customer address");
-        String address = scanner.nextLine();
-        Customer customer = new Customer(name, address);
-        System.out.println("you have created this user: " + customer);
-
-        SavingsAccount savingsAccount = new SavingsAccount(500.0, customer);
-        savingsAccount.setInterestRate(0.025);
+        Customer customer = createCustomerActivity(scanner);
+        double interestRate = 0.025;
+        double initialBalance = 500.0;
+        SavingsAccount savingsAccount = createSavingsAccountActivity(initialBalance, customer, interestRate);
         AccountService.creditInterest(savingsAccount);
 
         //5.
@@ -37,10 +34,6 @@ public class Main {
 
     }
 
-    private static void withdrawActivity(Scanner scanner, SavingsAccount savingsAccount) {
-        System.out.println("enter the amount of money you want to withdraw");
-        Integer withdrawAmount = Integer.parseInt(scanner.next());
-        AccountService.withdrawFromAccount(savingsAccount, withdrawAmount);
-    }
+
 
 }
