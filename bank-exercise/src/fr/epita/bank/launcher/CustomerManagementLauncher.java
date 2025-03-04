@@ -31,13 +31,14 @@ public class CustomerManagementLauncher {
                 Customer customer = ApplicationActivitiesService.createCustomerActivity(scanner);
                 SavingsAccount savingsAccount = ApplicationActivitiesService.createSavingsAccountActivity(500, customer, 0.025);
                 customerList.add(customer);
-                customerList.add(customer);
                 savingsAccountList.add(savingsAccount);
                 savingsAccount.setBalance(30.0);
             } else if ("2".equals(option)) {
 
             } else if ("3".equals(option)) {
                 //TODO implement here
+                System.out.println("Here is the list of customers");
+                System.out.println(customerList);
 
             } else {
                 System.out.println("unrecognized option");

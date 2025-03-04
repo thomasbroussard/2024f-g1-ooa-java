@@ -24,6 +24,7 @@ public class ApplicationActivitiesService {
     }
 
     public static SavingsAccount createSavingsAccountActivity(double initialBalance, Customer customer, double interestRate) {
+        //TODO use a scanner to ask inital balance and interest rate
         SavingsAccount savingsAccount = new SavingsAccount(initialBalance, customer);
         savingsAccount.setInterestRate(interestRate);
         return savingsAccount;
