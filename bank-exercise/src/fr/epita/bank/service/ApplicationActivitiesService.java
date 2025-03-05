@@ -3,6 +3,7 @@ package fr.epita.bank.service;
 import fr.epita.bank.datamodel.Customer;
 import fr.epita.bank.datamodel.SavingsAccount;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ApplicationActivitiesService {
@@ -24,6 +25,14 @@ public class ApplicationActivitiesService {
         System.out.println("you have created this user: " + customer);
         return customer;
     }
+
+    public void printCustomerList(List<Customer> customers){
+        System.out.println("name,address");
+        for (Customer customer : customers){
+            System.out.println(customer);
+        }
+    }
+
 
     public void withdrawActivity(SavingsAccount savingsAccount) {
         System.out.println("enter the amount of money you want to withdraw");

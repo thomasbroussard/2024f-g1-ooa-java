@@ -38,7 +38,7 @@ public class CustomerManagementLauncher {
             } else if ("3".equals(option)) {
                 //TODO implement here a csv display of the customers list
                 System.out.println("Here is the list of customers");
-                System.out.println(customerList);
+                activitiesService.printCustomerList(customerList);
 
             } else {
                 System.out.println("unrecognized option");

@@ -6,10 +6,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return name + "," + address;
     }
 
     public Customer(String newName, String newAddress) {
