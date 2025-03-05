@@ -7,7 +7,15 @@ import java.util.Scanner;
 
 public class ApplicationActivitiesService {
 
-    public static Customer createCustomerActivity(Scanner scanner) {
+
+    private Scanner scanner;
+
+    public ApplicationActivitiesService(Scanner scanner){
+        this.scanner = scanner;
+    }
+
+
+    public Customer createCustomerActivity() {
         System.out.println("Account creation, enter the customer name");
         String name = scanner.nextLine();
         System.out.println("enter the customer address");
@@ -17,15 +25,19 @@ public class ApplicationActivitiesService {
         return customer;
     }
 
-    public static void withdrawActivity(Scanner scanner, SavingsAccount savingsAccount) {
+    public void withdrawActivity(SavingsAccount savingsAccount) {
         System.out.println("enter the amount of money you want to withdraw");
         Integer withdrawAmount = Integer.parseInt(scanner.next());
         AccountService.withdrawFromAccount(savingsAccount, withdrawAmount);
     }
 
-    public static SavingsAccount createSavingsAccountActivity(double initialBalance, Customer customer, double interestRate) {
-        //TODO use a scanner to ask inital balance and interest rate
+    public SavingsAccount createSavingsAccountActivity(Customer customer) {
+        System.out.println("Savings account creation");
+        System.out.println("What initial balance?");
+        Double initialBalance = Double.parseDouble(scanner.nextLine());
         SavingsAccount savingsAccount = new SavingsAccount(initialBalance, customer);
+        System.out.println("What interest rate?");
+        Double interestRate = Double.parseDouble(scanner.nextLine());
         savingsAccount.setInterestRate(interestRate);
         return savingsAccount;
     }

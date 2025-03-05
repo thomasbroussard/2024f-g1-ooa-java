@@ -15,8 +15,9 @@ public class CustomerManagementLauncher {
         System.out.println("Welcome to this bank application");
         //from here
         String option = "";
-
         List<Customer> customerList = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        ApplicationActivitiesService activitiesService = new ApplicationActivitiesService(scanner);
         List<SavingsAccount> savingsAccountList = new LinkedList<>();
         do {
             System.out.println("What would you like to do?");
@@ -25,18 +26,17 @@ public class CustomerManagementLauncher {
             System.out.println("3. print the list of customers");
             System.out.println("9. quit the program");
             System.out.println("type your option (1 or 2 or 9)");
-            Scanner scanner = new Scanner(System.in);
+
             option = scanner.nextLine();
             if ("1".equals(option)) {
-                Customer customer = ApplicationActivitiesService.createCustomerActivity(scanner);
-                SavingsAccount savingsAccount = ApplicationActivitiesService.createSavingsAccountActivity(500, customer, 0.025);
+                Customer customer = activitiesService.createCustomerActivity();
+                SavingsAccount savingsAccount = activitiesService.createSavingsAccountActivity(customer);
                 customerList.add(customer);
                 savingsAccountList.add(savingsAccount);
-                savingsAccount.setBalance(30.0);
             } else if ("2".equals(option)) {
 
             } else if ("3".equals(option)) {
-                //TODO implement here
+                //TODO implement here a csv display of the customers list
                 System.out.println("Here is the list of customers");
                 System.out.println(customerList);
 
