@@ -1,6 +1,6 @@
 package fr.epita.geometry.datamodel;
 
-public class Triangle {
+public class Triangle implements Shape{
 
     private Double base;
     private Double height;
@@ -12,6 +12,12 @@ public class Triangle {
         this.height = height;
         this.sideA = sideA;
         this.sideB = sideB;
+    }
+    public Triangle(Integer base, Integer height, Integer sideA, Integer sideB) {
+        this.base = base.doubleValue();
+        this.height = height.doubleValue();
+        this.sideA = sideA.doubleValue();
+        this.sideB = sideB.doubleValue();
     }
 
     public Double getBase() {
@@ -44,5 +50,13 @@ public class Triangle {
 
     public void setSideB(Double sideB) {
         this.sideB = sideB;
+    }
+
+    public Double getArea(){
+       return this.base * this.height / 2;
+    }
+
+    public Double getPerimeter(){
+        return this.base + this.sideA + this.sideB;
     }
 }
