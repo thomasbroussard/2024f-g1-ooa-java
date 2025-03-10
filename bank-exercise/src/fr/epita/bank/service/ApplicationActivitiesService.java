@@ -62,4 +62,15 @@ public class ApplicationActivitiesService {
         return savingsAccount;
     }
 
+    public List<Customer> importCustomerList() {
+        List<String> lines = Files.readAllLines(Path.of("export.csv"));
+
+        String line = "name,address";
+        String[] parts = line.split(",");
+        parts[0]; //name
+        parts[1]; //address
+
+
+
+    }
 }
