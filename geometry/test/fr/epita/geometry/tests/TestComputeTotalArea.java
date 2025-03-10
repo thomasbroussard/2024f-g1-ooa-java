@@ -2,6 +2,7 @@ package fr.epita.geometry.tests;
 
 import fr.epita.geometry.datamodel.Circle;
 import fr.epita.geometry.datamodel.Shape;
+import fr.epita.geometry.datamodel.Square;
 import fr.epita.geometry.datamodel.Triangle;
 
 import java.util.List;
@@ -21,7 +22,12 @@ public class TestComputeTotalArea {
 
         totalArea = totalArea + circle1.getArea() + circle2.getArea() + circle3.getArea();
 
-        List<Shape> listOfShapes = List.of(circle1, triangle1);
+        Shape square1 = new Square(10.0);
+
+        //type casting
+        Square squareCasting = (Square) square1;
+
+        List<Shape> listOfShapes = List.of(circle1, triangle1, square1);
         totalArea = 0;
 
         for (Shape s: listOfShapes){

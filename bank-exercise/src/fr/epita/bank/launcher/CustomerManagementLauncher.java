@@ -4,6 +4,7 @@ import fr.epita.bank.datamodel.Customer;
 import fr.epita.bank.datamodel.SavingsAccount;
 import fr.epita.bank.service.ApplicationActivitiesService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 
 public class CustomerManagementLauncher {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Welcome to this bank application");
         //from here
         String option = "";
@@ -24,6 +25,8 @@ public class CustomerManagementLauncher {
             System.out.println("1. create customer");
             System.out.println("2. withdraw amount from an account");
             System.out.println("3. print the list of customers");
+            System.out.println("4. export the list of customers to a CSV file");
+
             System.out.println("9. quit the program");
             System.out.println("type your option (1 or 2 or 9)");
 
@@ -36,10 +39,13 @@ public class CustomerManagementLauncher {
             } else if ("2".equals(option)) {
 
             } else if ("3".equals(option)) {
-                //TODO implement here a csv display of the customers list
+
                 System.out.println("Here is the list of customers");
                 activitiesService.printCustomerList(customerList);
-
+            } else if ("4".equals(option)) {
+                //TODO implement here a csv display of the customers list
+                System.out.println("About to export customers data");
+                activitiesService.exportCustomerListAsCSV(customerList);
             } else {
                 System.out.println("unrecognized option");
             }

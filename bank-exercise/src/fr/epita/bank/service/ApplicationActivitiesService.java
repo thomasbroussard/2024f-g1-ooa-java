@@ -3,6 +3,9 @@ package fr.epita.bank.service;
 import fr.epita.bank.datamodel.Customer;
 import fr.epita.bank.datamodel.SavingsAccount;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,11 +29,19 @@ public class ApplicationActivitiesService {
         return customer;
     }
 
-    public void printCustomerList(List<Customer> customers){
-        System.out.println("name,address");
+    public String buildCustomersListCSV(List<Customer> customers){
+        String result = "name,address" + System.lineSeparator();
         for (Customer customer : customers){
-            System.out.println(customer);
+            result = result + customer.toString() + System.lineSeparator();
         }
+        return result;
+    }
+
+    public void printCustomerList(List<Customer> customers){
+        System.out.println(buildCustomersListCSV(customers));
+    }
+    public void exportCustomerListAsCSV(List<Customer> customers) throws IOException {
+        Files.writeString(Path.of("export.csv"),buildCustomersListCSV(customers));
     }
 
 
