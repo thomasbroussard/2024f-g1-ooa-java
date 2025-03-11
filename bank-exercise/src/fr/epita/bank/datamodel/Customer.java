@@ -14,5 +14,11 @@ public class Customer {
         this.address = newAddress;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getAddress() {
+        return address;
+    }
 }

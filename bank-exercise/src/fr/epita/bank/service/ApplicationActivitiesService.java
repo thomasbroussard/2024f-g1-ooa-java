@@ -6,6 +6,7 @@ import fr.epita.bank.datamodel.SavingsAccount;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -62,13 +63,18 @@ public class ApplicationActivitiesService {
         return savingsAccount;
     }
 
-    public List<Customer> importCustomerList() {
+    public List<Customer> importCustomerList() throws IOException {
         List<String> lines = Files.readAllLines(Path.of("export.csv"));
 
-        String line = "name,address";
-        String[] parts = line.split(",");
-        parts[0]; //name
-        parts[1]; //address
+        List<Customer> customers = new ArrayList<>();
+        lines.remove(0);//headers
+        for (String line : lines){
+            String[] parts = line.split(",");
+            Customer customer = new Customer(parts[0], parts[1]);
+            customers.add(customer);
+        }
+        return customers;
+
 
 
 
