@@ -47,9 +47,8 @@ public class CustomerManagementLauncher {
                 System.out.println("About to export customers data");
                 activitiesService.exportCustomerListAsCSV(customerList);
             } else if ("5".equals(option)) {
-                //TODO implement here a csv import of the customers list
                 System.out.println("About to import customers data");
-                customerList = activitiesService.importCustomerList();
+                customerList = activitiesService.importCustomerListActivity();
             } else {
                 System.out.println("unrecognized option");
             }

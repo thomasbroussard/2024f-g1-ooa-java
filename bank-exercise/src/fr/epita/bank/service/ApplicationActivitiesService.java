@@ -63,8 +63,15 @@ public class ApplicationActivitiesService {
         return savingsAccount;
     }
 
-    public List<Customer> importCustomerList() throws IOException {
-        List<String> lines = Files.readAllLines(Path.of("export.csv"));
+    public List<Customer> importCustomerListActivity() throws IOException {
+        System.out.println("from what file do you want to import?");
+        String fileInput = scanner.nextLine();
+        return importCustomerList(fileInput);
+    }
+
+    public List<Customer> importCustomerList(String fileInput) throws IOException {
+
+        List<String> lines = Files.readAllLines(Path.of(fileInput));
 
         List<Customer> customers = new ArrayList<>();
         lines.remove(0);//headers
@@ -74,9 +81,5 @@ public class ApplicationActivitiesService {
             customers.add(customer);
         }
         return customers;
-
-
-
-
     }
 }
