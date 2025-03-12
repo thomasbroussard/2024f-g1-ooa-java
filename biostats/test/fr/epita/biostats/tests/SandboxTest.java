@@ -1,12 +1,15 @@
 package fr.epita.biostats.tests;
 
 import fr.epita.biostats.datamodel.BiostatEntry;
+import fr.epita.biostats.service.BiostatCSVService;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Year;
+import java.time.temporal.TemporalField;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SandboxTest {
 
@@ -14,10 +17,70 @@ public class SandboxTest {
 
         List<BiostatEntry> entries = importBiostatEntriesFromCSV();
 
+        BiostatCSVService csvService = new BiostatCSVService();
+        csvService.exportBiostatEntries(entries);
 
         //we want to write all the data into a new file
         //we iterate over the biostat entry list
-        exportBiostatEntries(entries);
+        csvService.exportBiostatEntries(entries);
+
+        Double average = 0.0;
+        for (BiostatEntry entry: entries){
+            average += entry.getAge();
+        }
+        average = average / entries.size();
+        System.out.println(average);
+
+        average =  entries.stream()
+                .mapToInt(BiostatEntry::getAge)
+                .average()
+                .getAsDouble();
+
+        List<BiostatEntry> filteredList = new ArrayList<>();
+        Integer threshold = 20;
+        for (BiostatEntry entry : entries){
+            if (entry.getAge() > threshold){
+                filteredList.add(entry);
+            }
+        }
+        //return filteredList
+        //stream version of the same
+        filteredList = entries.stream()
+                .filter(e -> e.getAge() > threshold)
+                .toList();
+
+        BiostatEntry entry = entries.get(0);
+        Integer entryBirthYear =
+                Calendar.getInstance().get(Calendar.YEAR) - entry.getAge();
+
+        entryBirthYear = Year.now().getValue() - entry.getAge();
+        //return entryBirthYear
+
+        Integer fCounter = 0;
+        Integer mCounter = 0;
+        for (BiostatEntry biostatEntry : entries){
+            String gender = biostatEntry.getGender();
+            if ("M".equals(gender)){
+                mCounter ++;
+            } else if ("F".equals(gender)){
+                fCounter ++;
+            } else {
+                System.out.println("unknown value : "  + gender );
+            }
+        }
+
+        Map<String, Integer> genderDistribution = new HashMap<>();
+        for (BiostatEntry biostatEntry : entries){
+            Integer currentCount = genderDistribution
+                    .getOrDefault(biostatEntry.getGender(), 0);
+            genderDistribution.put(biostatEntry.getGender(),currentCount + 1);
+        }
+        System.out.println(genderDistribution);
+
+        Map<String, Long> distributionOverGender = entries
+                .stream()
+                .collect(Collectors.groupingBy(BiostatEntry::getGender, Collectors.counting()));
+
 
 
     }
