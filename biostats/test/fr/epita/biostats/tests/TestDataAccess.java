@@ -1,6 +1,10 @@
 package fr.epita.biostats.tests;
 
+import fr.epita.biostats.datamodel.BiostatEntry;
+import fr.epita.biostats.service.db.BiostatDAO;
+
 import java.sql.*;
+import java.util.List;
 
 public class TestDataAccess {
 
@@ -10,42 +14,12 @@ public class TestDataAccess {
 
         //should be "PUBLIC"
         String schema = connection.getSchema();
-
         System.out.println("schema: " + schema);
-
-        String createTable = """
-                CREATE TABLE BIOSTATS (
-                    NAME VARCHAR(255),
-                    SEX CHAR,
-                    AGE INT,
-                    HEIGHT INT,
-                    WEIGHT INT 
-                ) 
-                """;
-
-        PreparedStatement preparedStatement = connection.prepareStatement(createTable);
-        preparedStatement.execute();
-
-        String sqlInsert = """
-                INSERT INTO BIOSTATS (
-                    NAME, SEX, AGE, HEIGHT, WEIGHT                  
-                ) VALUES (
-                   'test', 'M', 23, 170, 73       
-                )
-                """;
-        PreparedStatement insertStatement = connection.prepareStatement(sqlInsert);
-        insertStatement.execute();
-
-        String sqlSelect = """
-                SELECT * FROM BIOSTATS
-                """;
-
-        PreparedStatement searchStatement = connection.prepareStatement(sqlSelect);
-        ResultSet resultSet = searchStatement.executeQuery();
-        while (resultSet.next()){
-            System.out.println(resultSet.getString("NAME"));
-        }
-
         connection.close();
+
+        BiostatDAO dao = new BiostatDAO();
+        dao.create(new BiostatEntry("test", "M", 23, 170, 75));
+        List<BiostatEntry> entries = dao.readAll();
+
     }
 }
