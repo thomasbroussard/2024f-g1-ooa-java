@@ -1,9 +1,6 @@
 package fr.epita.biostats.tests;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class TestDataAccess {
 
@@ -15,6 +12,39 @@ public class TestDataAccess {
         String schema = connection.getSchema();
 
         System.out.println("schema: " + schema);
+
+        String createTable = """
+                CREATE TABLE BIOSTATS (
+                    NAME VARCHAR(255),
+                    SEX CHAR,
+                    AGE INT,
+                    HEIGHT INT,
+                    WEIGHT INT 
+                ) 
+                """;
+
+        PreparedStatement preparedStatement = connection.prepareStatement(createTable);
+        preparedStatement.execute();
+
+        String sqlInsert = """
+                INSERT INTO BIOSTATS (
+                    NAME, SEX, AGE, HEIGHT, WEIGHT                  
+                ) VALUES (
+                   'test', 'M', 23, 170, 73       
+                )
+                """;
+        PreparedStatement insertStatement = connection.prepareStatement(sqlInsert);
+        insertStatement.execute();
+
+        String sqlSelect = """
+                SELECT * FROM BIOSTATS
+                """;
+
+        PreparedStatement searchStatement = connection.prepareStatement(sqlSelect);
+        ResultSet resultSet = searchStatement.executeQuery();
+        while (resultSet.next()){
+            System.out.println(resultSet.getString("NAME"));
+        }
 
         connection.close();
     }
