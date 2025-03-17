@@ -48,6 +48,26 @@ public class BiostatDAO {
 
         connection.close();
     }
+    public void update(BiostatEntry entry) throws SQLException {
+        String sqlUpdate = """
+                UPDATE BIOSTATS SET
+                    SEX = ?,
+                    AGE = ?,
+                    HEIGHT=?,
+                    WEIGHT=?
+                    WHERE NAME = ?      
+                """;
+        Connection connection = getConnection();
+        PreparedStatement updateStatement = connection.prepareStatement(sqlUpdate);
+        updateStatement.setString(5,entry.getName());
+        updateStatement.setString(1, entry.getGender());
+        updateStatement.setInt(2, entry.getAge());
+        updateStatement.setInt(3, entry.getHeight());
+        updateStatement.setInt(4, entry.getWeight());
+        updateStatement.execute();
+
+        connection.close();
+    }
 
     public List<BiostatEntry> readAll() throws SQLException {
         List<BiostatEntry> entries = new ArrayList<>();
@@ -69,6 +89,7 @@ public class BiostatDAO {
         }
         return entries;
     }
+
 
 
 

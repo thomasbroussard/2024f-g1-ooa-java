@@ -21,5 +21,6 @@ public class TestDataAccess {
         dao.create(new BiostatEntry("test", "M", 23, 170, 75));
         List<BiostatEntry> entries = dao.readAll();
 
+        System.out.println(entries);
     }
 }
