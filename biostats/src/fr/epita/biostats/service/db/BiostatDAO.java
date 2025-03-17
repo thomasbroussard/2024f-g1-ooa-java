@@ -10,7 +10,7 @@ public class BiostatDAO {
 
     public BiostatDAO() throws SQLException {
         String createTable = """
-                CREATE IF NOT EXISTS TABLE BIOSTATS (
+                CREATE TABLE IF NOT EXISTS BIOSTATS (
                     NAME VARCHAR(255),
                     SEX CHAR,
                     AGE INT,
