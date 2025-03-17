@@ -25,7 +25,7 @@ public class BiostatDAO {
     }
 
     private Connection getConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:h2:mem:testInstance", "test", "test");
+        Connection connection = DriverManager.getConnection("jdbc:h2:mem:testInstance;DB_CLOSE_DELAY=-1", "test", "test");
         return connection;
     }
 
