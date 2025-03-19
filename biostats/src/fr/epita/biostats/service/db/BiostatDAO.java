@@ -2,6 +2,7 @@ package fr.epita.biostats.service.db;
 
 import fr.epita.biostats.datamodel.BiostatEntry;
 import fr.epita.biostats.service.ConfigurationService;
+import fr.epita.biostats.service.exceptions.CreationException;
 
 import java.io.IOException;
 import java.sql.*;
@@ -37,7 +38,7 @@ public class BiostatDAO {
         return connection;
     }
 
-    public void create(BiostatEntry entry) throws SQLException {
+    public void create(BiostatEntry entry) throws CreationException {
         String sqlInsert = """
                 INSERT INTO BIOSTATS (
                     NAME,   SEX,    AGE,    HEIGHT, WEIGHT                  
@@ -45,16 +46,22 @@ public class BiostatDAO {
                     ?,      ?,      ?,          ?,      ?    
                 )
                 """;
-        Connection connection = getConnection();
-        PreparedStatement insertStatement = connection.prepareStatement(sqlInsert);
-        insertStatement.setString(1,entry.getName());
-        insertStatement.setString(2, entry.getGender());
-        insertStatement.setInt(3, entry.getAge());
-        insertStatement.setInt(4, entry.getHeight());
-        insertStatement.setInt(5, entry.getWeight());
-        insertStatement.execute();
+        try (Connection connection = getConnection()) {
+            PreparedStatement insertStatement = connection.prepareStatement(sqlInsert);
+            insertStatement.setString(1, entry.getName());
+            insertStatement.setString(2, entry.getGender());
+            insertStatement.setInt(3, entry.getAge());
+            insertStatement.setInt(4, entry.getHeight());
+            insertStatement.setInt(5, entry.getWeight());
+            insertStatement.execute();
+        } catch (Exception sqle){
+            CreationException creationException = new CreationException();
+            creationException.initCause(sqle);
+            throw creationException;
 
-        connection.close();
+        }
+
+
     }
     public void update(BiostatEntry entry) throws SQLException {
         String sqlUpdate = """

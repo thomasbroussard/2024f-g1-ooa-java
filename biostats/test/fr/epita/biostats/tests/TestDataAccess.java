@@ -2,6 +2,7 @@ package fr.epita.biostats.tests;
 
 import fr.epita.biostats.datamodel.BiostatEntry;
 import fr.epita.biostats.service.db.BiostatDAO;
+import fr.epita.biostats.service.exceptions.CreationException;
 
 import java.io.IOException;
 import java.sql.*;
@@ -19,8 +20,13 @@ public class TestDataAccess {
         connection.close();
 
         BiostatDAO dao = new BiostatDAO();
-        dao.create(new BiostatEntry("testM", "M", 23, 170, 75));
-        dao.create(new BiostatEntry("testW", "F", 25, 180, 70));
+        try {
+            dao.create(new BiostatEntry("testM", "M", 23, 170, 75));
+            dao.create(new BiostatEntry("testW", "F", 25, 180, 70));
+            dao.create(new BiostatEntry("testError","M", null, 10, 10 ));
+        }catch (CreationException e){
+            e.printStackTrace();
+        }
         List<BiostatEntry> entries = dao.readAll();
         System.out.println(entries);
         List<BiostatEntry> women = dao.search(new BiostatEntry(null, "F", null, null, null));
